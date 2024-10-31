@@ -21,14 +21,16 @@ class Experiment {
   }
 
   /// Initialize ExperimentClient with Amplitude instance to handle exposure events
-  static ExperimentClient initializeWithAmplitude(
-      {required Amplitude amplitude, ExperimentConfig? config}) {
+  static ExperimentClient initializeWithAmplitude({
+    required Amplitude amplitude,
+    required String apiKey,
+    ExperimentConfig? config,
+  }) {
     final trackExposureProvider = AnalyticsExposureTrackingProvider(amplitude);
 
     final newConfig = (config ?? ExperimentConfig())
         .copyWith(exposureTrackingProvider: trackExposureProvider);
 
-    return Experiment.initialize(
-        apiKey: amplitude.configuration.apiKey, config: newConfig);
+    return Experiment.initialize(apiKey: apiKey, config: newConfig);
   }
 }
