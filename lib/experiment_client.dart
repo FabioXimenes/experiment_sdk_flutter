@@ -22,7 +22,9 @@ class ExperimentClient {
   ExperimentClient({required String apiKey, ExperimentConfig? config})
       : _config = config,
         _httpClient = HttpClient(
-            apiKey: apiKey, shouldRetry: config?.retryFetchOnFailure),
+            apiKey: apiKey,
+            shouldRetry: config?.retryFetchOnFailure,
+            serverZone: config?.serverZone),
         _localStorage = LocalStorage(apiKey: apiKey) {
     _localStorage.load();
   }
@@ -64,15 +66,14 @@ class ExperimentClient {
     final sourceAndVariant = _getSourceAndVariant(flagKey);
     final source = sourceAndVariant?.source;
     final variant = sourceAndVariant?.variant;
-    final instanceName = _config?.instanceName ?? '\$default_instance';
 
     if (source != null &&
         isFallback(source) &&
         exposureTrackerProvider != null &&
         variant == null) {
-      await exposureTrackerProvider.exposure(flagKey, null, instanceName);
+      await exposureTrackerProvider.exposure(flagKey, null);
     } else if (variant != null && exposureTrackerProvider != null) {
-      await exposureTrackerProvider.exposure(flagKey, variant, instanceName);
+      await exposureTrackerProvider.exposure(flagKey, variant);
     }
 
     _log(
@@ -108,7 +109,7 @@ class ExperimentClient {
     return null;
   }
 
-  _storeVariants() {
+  void _storeVariants() {
     _localStorage.clear();
 
     _httpClient.fetchResult.forEach((key, value) {
@@ -118,7 +119,7 @@ class ExperimentClient {
     _localStorage.save();
   }
 
-  _log(String message) {
+  void _log(String message) {
     if (_config?.debug ?? false) {
       // ignore: avoid_print
       print(message);

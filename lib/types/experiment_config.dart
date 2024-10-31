@@ -1,4 +1,5 @@
 import 'package:experiment_sdk_flutter/types/experiment_exposure_tracking_provider.dart';
+import 'package:experiment_sdk_flutter/types/experiment_server_zone.dart';
 import 'package:experiment_sdk_flutter/types/experiment_sources.dart';
 import 'package:experiment_sdk_flutter/types/experiment_variant.dart';
 
@@ -11,18 +12,21 @@ class ExperimentConfig {
   final bool? retryFetchOnFailure;
   final bool? automaticExposureTracking;
   final ExperimentExposureTrackingProvider? exposureTrackingProvider;
+  final ExperimentServerZone serverZone;
 
   Duration get timeout => Duration(milliseconds: fetchTimeoutMillis ?? 5000);
 
-  ExperimentConfig(
-      {this.debug = false,
-      this.instanceName = '\$default_instance',
-      this.fallbackVariant,
-      this.source,
-      this.fetchTimeoutMillis,
-      this.retryFetchOnFailure,
-      this.automaticExposureTracking = false,
-      this.exposureTrackingProvider});
+  ExperimentConfig({
+    this.debug = false,
+    this.instanceName = '\$default_instance',
+    this.fallbackVariant,
+    this.source,
+    this.fetchTimeoutMillis,
+    this.retryFetchOnFailure,
+    this.automaticExposureTracking = false,
+    this.exposureTrackingProvider,
+    this.serverZone = ExperimentServerZone.us,
+  });
 
   copyWith(
       {bool? debug,

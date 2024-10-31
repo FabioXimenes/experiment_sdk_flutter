@@ -2,7 +2,7 @@ import 'package:experiment_sdk_flutter/types/experiment_variant.dart';
 
 class ExperimentFetchItem {
   final String key;
-  final Map<String, dynamic>? payload;
+  final dynamic payload;
 
   ExperimentFetchItem({required this.key, this.payload});
 

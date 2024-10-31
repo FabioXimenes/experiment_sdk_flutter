@@ -2,7 +2,19 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:experiment_sdk_flutter/types/experiment_fetch_item.dart';
+import 'package:experiment_sdk_flutter/types/experiment_server_zone.dart';
 import 'package:http/http.dart' as http;
+
+extension ExperimentServerZoneClientExtension on ExperimentServerZone {
+  String get baseUri {
+    switch (this) {
+      case ExperimentServerZone.us:
+        return 'api.lab.amplitude.com';
+      case ExperimentServerZone.eu:
+        return 'api.lab.eu.amplitude.com';
+    }
+  }
+}
 
 abstract class QueryParameters {
   Map<String, dynamic> toJson();
@@ -11,12 +23,16 @@ abstract class QueryParameters {
 // HTTP Client Class
 class HttpClient {
   final String _apiKey;
-  final String _baseUri = 'api.lab.amplitude.com';
+  final String _baseUri;
   final bool _shouldRetry;
 
-  HttpClient({required apiKey, bool? shouldRetry})
+  HttpClient(
+      {required apiKey,
+      bool? shouldRetry,
+      ExperimentServerZone? serverZone = ExperimentServerZone.us})
       : _apiKey = apiKey,
-        _shouldRetry = shouldRetry ?? true;
+        _shouldRetry = shouldRetry ?? true,
+        _baseUri = serverZone?.baseUri ?? ExperimentServerZone.us.baseUri;
 
   bool _isRetry = false;
   Map<String, ExperimentFetchItem> fetchResult = {};
