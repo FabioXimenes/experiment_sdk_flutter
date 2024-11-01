@@ -75,6 +75,7 @@ class HttpClient {
     Map<String, dynamic> data =
         jsonDecode(const Utf8Decoder().convert(response.bodyBytes));
 
+    fetchResult.clear();
     data.forEach((key, value) {
       fetchResult[key] = ExperimentFetchItem.fromMap(value);
     });
