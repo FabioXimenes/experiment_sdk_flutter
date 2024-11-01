@@ -28,25 +28,29 @@ class ExperimentConfig {
     this.serverZone = ExperimentServerZone.us,
   });
 
-  copyWith(
-      {bool? debug,
-      String? instanceName,
-      ExperimentVariant? fallbackVariant,
-      ExperimentVariantSource? source,
-      int? fetchTimeoutMillis,
-      bool? retryFetchOnFailure,
-      bool? automaticExposureTracking,
-      ExperimentExposureTrackingProvider? exposureTrackingProvider}) {
+  copyWith({
+    bool? debug,
+    String? instanceName,
+    ExperimentVariant? fallbackVariant,
+    ExperimentVariantSource? source,
+    int? fetchTimeoutMillis,
+    bool? retryFetchOnFailure,
+    bool? automaticExposureTracking,
+    ExperimentExposureTrackingProvider? exposureTrackingProvider,
+    ExperimentServerZone? serverZone,
+  }) {
     return ExperimentConfig(
-        debug: debug ?? this.debug,
-        instanceName: instanceName ?? this.instanceName,
-        fallbackVariant: fallbackVariant ?? this.fallbackVariant,
-        source: source ?? this.source,
-        fetchTimeoutMillis: fetchTimeoutMillis ?? this.fetchTimeoutMillis,
-        retryFetchOnFailure: retryFetchOnFailure ?? this.retryFetchOnFailure,
-        automaticExposureTracking:
-            automaticExposureTracking ?? this.automaticExposureTracking,
-        exposureTrackingProvider:
-            exposureTrackingProvider ?? this.exposureTrackingProvider);
+      debug: debug ?? this.debug,
+      instanceName: instanceName ?? this.instanceName,
+      fallbackVariant: fallbackVariant ?? this.fallbackVariant,
+      source: source ?? this.source,
+      fetchTimeoutMillis: fetchTimeoutMillis ?? this.fetchTimeoutMillis,
+      retryFetchOnFailure: retryFetchOnFailure ?? this.retryFetchOnFailure,
+      automaticExposureTracking:
+          automaticExposureTracking ?? this.automaticExposureTracking,
+      exposureTrackingProvider:
+          exposureTrackingProvider ?? this.exposureTrackingProvider,
+      serverZone: serverZone ?? this.serverZone,
+    );
   }
 }
