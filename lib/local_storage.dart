@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:experiment_sdk_flutter/types/experiment_variant.dart';
@@ -31,7 +32,7 @@ class LocalStorage {
     return map;
   }
 
-  Future<void> load() async {
+  FutureOr<void> load() async {
     final prefs = await SharedPreferences.getInstance();
 
     final experiments = prefs.getString(namespace);
@@ -45,7 +46,7 @@ class LocalStorage {
     }
   }
 
-  Future<void> save() async {
+  FutureOr<void> save() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(namespace, jsonEncode(map));
   }

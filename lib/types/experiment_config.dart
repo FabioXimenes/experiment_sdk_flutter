@@ -28,7 +28,7 @@ class ExperimentConfig {
     this.serverZone = ExperimentServerZone.us,
   });
 
-  copyWith({
+  ExperimentConfig copyWith({
     bool? debug,
     String? instanceName,
     ExperimentVariant? fallbackVariant,
