@@ -16,7 +16,7 @@ class ExperimentConfig {
 
   Duration get timeout => Duration(milliseconds: fetchTimeoutMillis ?? 5000);
 
-  ExperimentConfig({
+  const ExperimentConfig({
     this.debug = false,
     this.instanceName = '\$default_instance',
     this.fallbackVariant,
