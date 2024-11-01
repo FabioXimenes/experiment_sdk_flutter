@@ -112,12 +112,9 @@ class ExperimentClient {
   void _storeVariants() {
     _localStorage.clear();
 
-    Map<String, ExperimentVariant> variants = {};
     _httpClient.fetchResult.forEach((key, value) {
-      variants[key] = value.toVariant();
+      _localStorage.put(key, value.toVariant());
     });
-
-    _localStorage.updateExperiments(variants);
 
     _localStorage.save();
   }
