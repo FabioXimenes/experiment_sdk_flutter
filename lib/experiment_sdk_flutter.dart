@@ -28,7 +28,7 @@ class Experiment {
   }) {
     final trackExposureProvider = AnalyticsExposureTrackingProvider(amplitude);
 
-    final newConfig = (config ?? ExperimentConfig())
+    final newConfig = (config ?? const ExperimentConfig())
         .copyWith(exposureTrackingProvider: trackExposureProvider);
 
     return Experiment.initialize(apiKey: apiKey, config: newConfig);
