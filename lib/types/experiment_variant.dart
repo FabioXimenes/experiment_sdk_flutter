@@ -1,6 +1,6 @@
 class ExperimentVariant {
   String value;
-  dynamic payload;
+  Object? payload;
 
   ExperimentVariant({required this.value, this.payload});
 
