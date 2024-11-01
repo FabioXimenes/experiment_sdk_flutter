@@ -14,8 +14,8 @@ class LocalStorage {
 
   LocalStorage({required String apiKey}) : namespace = _getNamespace(apiKey);
 
-  void put(String key, ExperimentVariant value) {
-    map[key] = value;
+  void updateExperiments(Map<String, ExperimentVariant> experiments) {
+    map = experiments;
   }
 
   ExperimentVariant? get(String key) {
