@@ -25,14 +25,17 @@ class HttpClient {
   final String _apiKey;
   final String _baseUri;
   final bool _shouldRetry;
+  final String? _proxyUrl;
 
-  HttpClient(
-      {required apiKey,
-      bool? shouldRetry,
-      ExperimentServerZone? serverZone = ExperimentServerZone.us})
-      : _apiKey = apiKey,
+  HttpClient({
+    required apiKey,
+    bool? shouldRetry,
+    ExperimentServerZone? serverZone = ExperimentServerZone.us,
+    String? proxyUrl,
+  })  : _apiKey = apiKey,
         _shouldRetry = shouldRetry ?? true,
-        _baseUri = serverZone?.baseUri ?? ExperimentServerZone.us.baseUri;
+        _baseUri = serverZone?.baseUri ?? ExperimentServerZone.us.baseUri,
+        _proxyUrl = proxyUrl;
 
   bool _isRetry = false;
   Map<String, ExperimentFetchItem> fetchResult = {};
@@ -41,7 +44,13 @@ class HttpClient {
 
   /// Get function invoked on HTTP requests
   Future<void> get(QueryParameters queryParameters, [Duration? timeout]) async {
-    final uri = Uri.https(_baseUri, '/v1/vardata', queryParameters.toJson());
+    final Uri uri;
+    if (_proxyUrl != null) {
+      uri = Uri.parse(_proxyUrl!)
+          .replace(queryParameters: queryParameters.toJson());
+    } else {
+      uri = Uri.https(_baseUri, '/v1/vardata', queryParameters.toJson());
+    }
 
     final request =
         httpClient.get(uri, headers: {'Authorization': 'Api-Key $_apiKey'});

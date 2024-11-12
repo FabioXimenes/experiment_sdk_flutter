@@ -22,9 +22,11 @@ class ExperimentClient {
   ExperimentClient({required String apiKey, ExperimentConfig? config})
       : _config = config,
         _httpClient = HttpClient(
-            apiKey: apiKey,
-            shouldRetry: config?.retryFetchOnFailure,
-            serverZone: config?.serverZone),
+          apiKey: apiKey,
+          shouldRetry: config?.retryFetchOnFailure,
+          serverZone: config?.serverZone,
+          proxyUrl: config?.proxyUrl,
+        ),
         _localStorage = LocalStorage(apiKey: apiKey) {
     _localStorage.load();
   }

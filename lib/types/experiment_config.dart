@@ -13,6 +13,7 @@ class ExperimentConfig {
   final bool? automaticExposureTracking;
   final ExperimentExposureTrackingProvider? exposureTrackingProvider;
   final ExperimentServerZone serverZone;
+  final String? proxyUrl;
 
   Duration get timeout => Duration(milliseconds: fetchTimeoutMillis ?? 5000);
 
@@ -26,6 +27,7 @@ class ExperimentConfig {
     this.automaticExposureTracking = false,
     this.exposureTrackingProvider,
     this.serverZone = ExperimentServerZone.us,
+    this.proxyUrl,
   });
 
   ExperimentConfig copyWith({
@@ -38,6 +40,7 @@ class ExperimentConfig {
     bool? automaticExposureTracking,
     ExperimentExposureTrackingProvider? exposureTrackingProvider,
     ExperimentServerZone? serverZone,
+    String? proxyUrl,
   }) {
     return ExperimentConfig(
       debug: debug ?? this.debug,
@@ -51,6 +54,7 @@ class ExperimentConfig {
       exposureTrackingProvider:
           exposureTrackingProvider ?? this.exposureTrackingProvider,
       serverZone: serverZone ?? this.serverZone,
+      proxyUrl: proxyUrl ?? this.proxyUrl,
     );
   }
 }
