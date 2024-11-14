@@ -42,14 +42,17 @@ class HttpClient {
 
   final httpClient = http.Client();
 
+  static const featureFlagEndpoint = '/v1/vardata';
+
   /// Get function invoked on HTTP requests
   Future<void> get(QueryParameters queryParameters, [Duration? timeout]) async {
     final Uri uri;
-    if (_proxyUrl != null) {
-      uri = Uri.parse(_proxyUrl!)
+    final maybeProxy = _proxyUrl;
+    if (maybeProxy != null) {
+      uri = Uri.parse(maybeProxy)
           .replace(queryParameters: queryParameters.toJson());
     } else {
-      uri = Uri.https(_baseUri, '/v1/vardata', queryParameters.toJson());
+      uri = Uri.https(_baseUri, featureFlagEndpoint, queryParameters.toJson());
     }
 
     final request =
