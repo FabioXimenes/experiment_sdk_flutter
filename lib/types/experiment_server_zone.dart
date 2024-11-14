@@ -1,0 +1,1 @@
+enum ExperimentServerZone { us, eu }

@@ -1,10 +1,10 @@
 import 'dart:io';
 
+import 'package:experiment_sdk_flutter/experiment_sdk_flutter.dart';
 import 'package:experiment_sdk_flutter/types/experiment_config.dart';
 import 'package:experiment_sdk_flutter/types/experiment_exposure_tracking_provider.dart';
 import 'package:experiment_sdk_flutter/types/experiment_variant.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:experiment_sdk_flutter/experiment_sdk_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomBindings extends AutomatedTestWidgetsFlutterBinding {
@@ -16,8 +16,7 @@ class MockedTracker implements ExperimentExposureTrackingProvider {
   late int result;
 
   @override
-  Future<void> exposure(
-      String flagkey, ExperimentVariant? variant, String instanceName) async {
+  Future<void> exposure(String flagkey, ExperimentVariant? variant) async {
     // ↓ mock an result to exposure to ensure that is called
     result = 0;
   }
