@@ -1,24 +1,20 @@
-import 'dart:convert';
-
 class ExperimentVariant {
   String value;
-  Map<String, dynamic>? payload;
+  Object? payload;
 
   ExperimentVariant({required this.value, this.payload});
 
-  factory ExperimentVariant.fromMap(Map<String, dynamic> map) {
-    final payloadOnMap = map['payload'];
-
+  factory ExperimentVariant.fromJson(Map<String, dynamic> json) {
     return ExperimentVariant(
-        value: map['value'], payload: payloadOnMap['value']);
+      value: json['value'],
+      payload: json['payload'],
+    );
   }
 
-  String toJsonAsString() {
-    final toEncode = {};
-
-    toEncode['value'] = value;
-    toEncode['payload'] = payload ?? {};
-
-    return jsonEncode(toEncode);
+  Map<String, dynamic> toJson() {
+    return {
+      'value': value,
+      'payload': payload,
+    };
   }
 }

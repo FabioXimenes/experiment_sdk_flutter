@@ -1,9 +1,9 @@
 PODS:
-  - Amplitude (8.18.0):
-    - AnalyticsConnector (~> 1.0.0)
   - amplitude_flutter (0.0.1):
-    - Amplitude (= 8.18.0)
+    - AmplitudeSwift (~> 1.6)
     - Flutter
+  - AmplitudeSwift (1.9.4):
+    - AnalyticsConnector (~> 1.0.1)
   - AnalyticsConnector (1.0.3)
   - Flutter (1.0.0)
   - shared_preferences_foundation (0.0.1):
@@ -17,7 +17,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Amplitude
+    - AmplitudeSwift
     - AnalyticsConnector
 
 EXTERNAL SOURCES:
@@ -29,12 +29,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
 
 SPEC CHECKSUMS:
-  Amplitude: 184def4f87aa26f94a93a7faa334e06b1cae704d
-  amplitude_flutter: 0f617f89d62b10c40a0ab14849e660a7c12e4e46
+  amplitude_flutter: aed4ad5d2da06894245fde7e8c56fed39ac6dca8
+  AmplitudeSwift: d10ae6afdb0740e4ae843866bce8ab1119a53d74
   AnalyticsConnector: a53214d38ae22734c6266106c0492b37832633a9
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
 
-PODFILE CHECKSUM: c4c93c5f6502fe2754f48404d3594bf779584011
+PODFILE CHECKSUM: cc1f88378b4bfcf93a6ce00d2c587857c6008d3b
 
-COCOAPODS: 1.12.0
+COCOAPODS: 1.15.2

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:experiment_sdk_flutter/types/experiment_variant.dart';
@@ -11,9 +12,7 @@ class LocalStorage {
   @protected
   Map<String, ExperimentVariant> map = {};
 
-  LocalStorage({required String apiKey}) : namespace = _getNamespace(apiKey) {
-    SharedPreferences.setPrefix(namespace);
-  }
+  LocalStorage({required String apiKey}) : namespace = _getNamespace(apiKey);
 
   void put(String key, ExperimentVariant value) {
     map[key] = value;
@@ -33,27 +32,23 @@ class LocalStorage {
     return map;
   }
 
-  void load() async {
+  FutureOr<void> load() async {
     final prefs = await SharedPreferences.getInstance();
 
-    final keys = prefs.getKeys();
-    Map<String, ExperimentVariant> newMap = {};
+    final experiments = prefs.getString(namespace);
 
-    for (String key in keys) {
-      dynamic value = prefs.get(key);
+    if (experiments != null) {
+      final Map<String, dynamic> experimentsMap = jsonDecode(experiments);
 
-      newMap[key] = ExperimentVariant.fromMap(jsonDecode(value));
+      map = experimentsMap.map((key, value) {
+        return MapEntry(key, ExperimentVariant.fromJson(value));
+      });
     }
-
-    map = newMap;
   }
 
-  void save() async {
+  FutureOr<void> save() async {
     final prefs = await SharedPreferences.getInstance();
-
-    map.forEach((key, value) {
-      prefs.setString(key, value.toJsonAsString());
-    });
+    prefs.setString(namespace, jsonEncode(map));
   }
 
   static _getNamespace(String apiKey) {
